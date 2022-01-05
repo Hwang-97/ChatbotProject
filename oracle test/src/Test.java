@@ -20,7 +20,7 @@ public class Test {
 				while(rs.next()) {
 					System.out.println(rs.getInt("seq")+rs.getString("name")+rs.getInt("num"));
 				}
-				
+				dml.update(con, id, pw);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
