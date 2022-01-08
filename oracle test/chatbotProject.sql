@@ -27,7 +27,7 @@ create table tblKeyword(
 
 create table tblQuestion(
     seq Number PRIMARY KEY,
-    question varchar2(4000),
+    question varchar2(4000) unique not null,
     answer_seq number REFERENCES tblAnswer(seq) not null,
     cnt number default 0
 );
@@ -68,6 +68,7 @@ Create or replace PROCEDURE getAnswer(
 )
 is
 begin
+    Panswer :='No';
     select answer into Panswer from vwqa where question=Pquestion;
 Exception 
     When NO_DATA_FOUND then
@@ -90,6 +91,7 @@ is
     keyword3 varchar2(4000);
     cursor vcursor is select keyword , answer_seq from tblkeyword order by answer_seq;
 begin
+    Panswer :='No';
     open vcursor;
         loop
             fetch vcursor into vkeyword,vanswer_seq;
