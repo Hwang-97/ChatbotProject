@@ -26,7 +26,8 @@ public class Application {
 				int select = Integer.parseInt(scan.nextLine());
 				if(select==1) {
 					Client client = new Client(con);
-					client.startClient();
+					
+					System.out.println(client.startClient("안녕"));
 				}else if(select==2) {
 					Manager manager = new Manager(con);
 					manager.startManager();				

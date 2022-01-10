@@ -11,10 +11,10 @@ public class Manager {
 	private Connection con;
 	private Scanner scan = new Scanner(System.in);
 	
-	Manager(Connection con){
+	public Manager(Connection con){
 		this.con = con;
 	}
-	Manager(){
+	public Manager(){
 		System.out.println("plese call this Method / Method name : setConnection");
 	}
 	public void setConnection(Connection con) {

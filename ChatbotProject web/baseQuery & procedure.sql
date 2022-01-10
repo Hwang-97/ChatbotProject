@@ -58,6 +58,7 @@ insert into tblQuestion values(seqQuestion.nextval,'전화로문의하고싶어�
 
 select * from tblQuestion;
 select * from tblAnswer;
+--update tblAnswer set answer='이 프로그램의 관리자는 황현우 입니다.' where seq = 17;
 select * from vwqa;
 select * from tblKeyword;
 
@@ -135,5 +136,27 @@ begin
 --    getAnswer_keyword('안녕하세요 고객센터 연락처좀(전화) 알려주시겠어요?',vm);
     dbms_output.put_line(vm);
 end;
+
+drop sequence seqRegdata;
+drop table tblRegdata;
+
+create sequence seqRegdata;
+
+create table tblRegdata(
+    seq number primary key,
+    txt varchar2(4000)
+);
+
+insert into tblRegdata values(seqRegdata.nextval,'순서1');
+insert into tblRegdata values(seqRegdata.nextval,'순서2');
+insert into tblRegdata values(seqRegdata.nextval,'순서3');
+insert into tblRegdata values(seqRegdata.nextval,'순서4');
+insert into tblRegdata values(seqRegdata.nextval,'순서5');
+insert into tblRegdata values(seqRegdata.nextval,'순서6');
+insert into tblRegdata values(seqRegdata.nextval,'순서7');
+
+select * from tblRegdata;
+
+delete from tblRegdata ;
 
 commit;

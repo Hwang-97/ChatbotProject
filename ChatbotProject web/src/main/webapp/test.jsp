@@ -1,5 +1,28 @@
+
+<%@page import="chatbot.Client"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="chatbot.Application"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	Connection con;
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String id = "chatbotProject";
+	String pw = "gusdn1234";
+	String answer ="ABC";
+	String answer2 ="";
+	String question = "안녕하세요!";
+	try {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		con = DriverManager.getConnection(url, id, pw);
+		Client client = new Client(con);
+		answer=client.startClient(question);
+		answer2="ABC";
+	}catch(Exception e) {
+		e.printStackTrace();
+	}
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,27 +42,21 @@
 		</div>
 		<div class="contents">
 			<div class="bar">
-				<input type="button" class="btn" value="X">
+				<input type="button" class="btn" id="xbutton" value="X">
 			</div>
 			<div class="content">
 				<div style="text-align: left">안녕?</div>
-				<div style="text-align: right">안녕ㅎㅎ?</div>			
+				<div style="text-align: right">안녕ㅎㅎ?</div>
+				
+					
+						
+					<div style="text-align: left"><%=answer %></div>
 			</div>
 			<input type="text" class="form-control"><input type="button" class="btn" value="send" id="sendButton">
 		</div>
 	</div>
 
 <script>
-	let answer = $("<div>");
-	let question = $("<div>");
-	answer.css({
-		"text-align":"left"
-	});
-	answer.text("관리자 : ");
-	question.css({
-		"text-align":"right"
-	});
-	question.text("사용자 : ");
 	$(".contents").css({
 		"border":"1px solid #4444",
 		"display":"none"
@@ -58,17 +75,23 @@
 		"background-color":"#EEA032"
 	});
 	$("#sendButton").click(()=>{
-		question.text($(".form-control").val()+": 사용자");
-		$(".content").appendChild(question);
+		<%%>
+		let q = $("<div>").text($(".form-control").val()+": 사용자");
+		q.css({
+			"text-align":"right"
+		});
+		$(".content").append(q);
+		$(".form-control").val('');
 	});
-		question.text("사용자 : ");
-		$(".form-control").val("");
-	$(".bar > input").css({
+	$("#xbutton").css({
 		"margin-top":"1%",
 		"margin-right":"2%",
 		"background-color":"#337AB5",
 		"font-weight":"1000",
 		"font-size":"16px"
+	});
+	$("#xbutton").click(()=>{
+		$(".contents").slideUp(200);
 	});
 	$(".bar").css({
 		"width":"300px",
@@ -86,11 +109,7 @@
 	});
 	
 	$(".chatbotIcon").click(()=>{
-		if($(".contents").css("display")==="none"){
-			$(".contents").css(("display"),"");			
-		}else{
-			$(".contents").css(("display"),"none");
-		}
+		$(".contents").slideToggle(200);
 	});
 	$(".chatbotIcon").mouseover(()=>{
 		$(".chatbotIcon>i").css({"color":"blue"})
