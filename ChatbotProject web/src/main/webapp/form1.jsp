@@ -17,7 +17,7 @@
 	
 	con = DBUtill.open();
 	
-	if(question!=null){
+	if(question!=null)k{
 		Client client = new Client(con);
 		answer = client.startClient(question);
 		con.prepareStatement("insert into tblRegdata values(seqRegdata.nextval,'"+question+"')").executeUpdate();
